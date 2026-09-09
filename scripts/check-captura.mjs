@@ -68,4 +68,32 @@ assert.equal(shouldMirrorPreview("user"), true);
 assert.equal(shouldMirrorPreview(undefined), true);
 assert.equal(shouldMirrorPreview("environment"), false);
 
+function photoRecordId(pose, date) {
+  return `${date}:${pose}`;
+}
+
+function photosByPoseOnDate(photos, date) {
+  const day = photos.filter((p) => p.date === date);
+  return poses.map((pose) => day.find((p) => p.pose === pose)).filter(Boolean);
+}
+
+const day = "2026-09-09";
+const frente = photoRecordId("frente", day);
+const sorriso = photoRecordId("sorriso", day);
+const oclusao = photoRecordId("oclusao", day);
+assert.notEqual(frente, sorriso);
+assert.notEqual(sorriso, oclusao);
+assert.equal(frente, "2026-09-09:frente");
+assert.deepEqual(
+  photosByPoseOnDate(
+    [
+      { pose: "oclusao", date: day },
+      { pose: "frente", date: day },
+      { pose: "sorriso", date: "2026-09-08" },
+    ],
+    day,
+  ).map((p) => p.pose),
+  ["frente", "oclusao"],
+);
+
 console.log("captura checks ok");
