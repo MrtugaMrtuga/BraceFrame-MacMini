@@ -53,4 +53,4 @@ Deploy pensado para `*.evob.org` / Mac Mini. Vercel não é o destino principal.
 
 ## Marca
 
-Tokens V2: [`src/styles/tokens-kids.css`](src/styles/tokens-kids.css) e [`src/styles/tokens-adultos.css`](src/styles/tokens-adultos.css). Boards: [`docs/design.md`](docs/design.md). Ícone 1024: [`docs/icon-1024.png`](docs/icon-1024.png).
+Tokens V2: [`src/styles/tokens-kids.css`](src/styles/tokens-kids.css) e [`src/styles/tokens-adultos.css`](src/styles/tokens-adultos.css). Boards: [`docs/design.md`](docs/design.md). Ícones PWA: `public/apple-touch-icon.png` (180) e `public/icons/icon-192.png` / `icon-512.png`. PNG 1024: [`docs/icon-1024.png`](docs/icon-1024.png).

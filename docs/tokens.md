@@ -33,11 +33,12 @@ Raios: cartão `12px`, CTA `10px`. Sem streak, sem ouro.
 
 ## Ícone (bloqueado)
 
-O mark é o viewfinder + sorriso em coral.
+O mark é o sorriso + quatro brackets em coral (Marahas/Nia).
 
-- Fonte de verdade: `public/icons/icon.svg`
-- PNG 1024: `docs/icon-1024.png` e `public/icons/icon-1024.png`
-- Não gerar um ícone alternativo. Tamanhos PWA saem de `npm run icons`.
+- iOS: `public/apple-touch-icon.png` (180)
+- PWA: `public/icons/icon-192.png` e `public/icons/icon-512.png` (PNG only no manifesto)
+- Opcional: `public/icons/icon-1024.png` e `docs/icon-1024.png`
+- Não pôr SVG no manifesto. Não gerar um ícone alternativo.
 
 ## Copy (PT-PT)
 
