@@ -326,24 +326,24 @@ img {
   color: var(--accent);
 }
 
-/* Hooks for Marahas drops — same filenames under public/guides/. */
+/* Filename hooks for Marahas drops (JS <img> loads SVG; PNG fallback). */
 html.skin-adultos .vf-frame.guide-frente {
-  --guide-src: url("./guides/frente-adultos.svg");
+  --guide-file: frente-adultos.svg;
 }
 html.skin-adultos .vf-frame.guide-sorriso {
-  --guide-src: url("./guides/sorriso-adultos.svg");
+  --guide-file: sorriso-adultos.svg;
 }
 html.skin-adultos .vf-frame.guide-oclusao {
-  --guide-src: url("./guides/oclusao-adultos.svg");
+  --guide-file: oclusao-adultos.svg;
 }
 html.skin-kids .vf-frame.guide-frente {
-  --guide-src: url("./guides/frente-kids.svg");
+  --guide-file: frente-kids.svg;
 }
 html.skin-kids .vf-frame.guide-sorriso {
-  --guide-src: url("./guides/sorriso-kids.svg");
+  --guide-file: sorriso-kids.svg;
 }
 html.skin-kids .vf-frame.guide-oclusao {
-  --guide-src: url("./guides/oclusao-kids.svg");
+  --guide-file: oclusao-kids.svg;
 }
 
 .vf-pose {
