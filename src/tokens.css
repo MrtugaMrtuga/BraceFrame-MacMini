@@ -1,0 +1,23 @@
+:root {
+  --page: #fafafa;
+  --card: #ffffff;
+  --ink: #111111;
+  --mute: #8e8e93;
+  --line: #e5e5ea;
+  --accent: #ff5a4a;
+  --wash: #fff1ef;
+  --placeholder: #ececee;
+  --radius-card: 20px;
+  --radius-cta: 14px;
+  --radius-pill: 999px;
+  --cta-h: 54px;
+  --tab-h: 64px;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter",
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+}
+
+@page {
+  margin: 0;
+}
