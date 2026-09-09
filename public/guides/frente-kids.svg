@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="780" height="980" viewBox="0 0 780 980" fill="none">
-  <ellipse cx="390" cy="490" rx="208" ry="318" stroke="#ff5a4a" stroke-width="3.85" opacity="0.95"/>
-  <line x1="390" y1="172" x2="390" y2="808" stroke="#ff5a4a" stroke-width="1.96" stroke-dasharray="4 5" opacity="0.45"/>
-  <line x1="248" y1="396" x2="532" y2="396" stroke="#ff5a4a" stroke-width="2.1" stroke-dasharray="4 5" opacity="0.5"/>
-  <circle cx="308" cy="396" r="22" stroke="#ff5a4a" stroke-width="3.2" fill="none" opacity="0.7"/>
-  <circle cx="472" cy="396" r="22" stroke="#ff5a4a" stroke-width="3.2" fill="none" opacity="0.7"/>
-  <path d="M318 632 C358 612, 422 612, 462 632" stroke="#ff5a4a" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.9"/>
-  <path d="M318 632 C358 652, 422 652, 462 632" stroke="#ff5a4a" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.9"/>
+  <ellipse cx="390" cy="500" rx="215" ry="325" stroke="#ff5a4a" stroke-width="3.60" opacity="0.95"/>
+  <line x1="390" y1="175" x2="390" y2="825" stroke="#ff5a4a" stroke-width="2.10" stroke-dasharray="5 6" opacity="0.50"/>
+  <line x1="230" y1="400" x2="550" y2="400" stroke="#ff5a4a" stroke-width="2.25" stroke-dasharray="5 6" opacity="0.55"/>
+  <circle cx="390" cy="400" r="6.3" fill="#ff5a4a" opacity="0.85"/>
+  <path d="M318 628 C358 608, 422 608, 462 628 C422 648, 358 648, 318 628 Z" stroke="#ff5a4a" stroke-width="3.30" fill="none" opacity="0.92"/>
+  <path d="M292 768 Q390 808 488 768" stroke="#ff5a4a" stroke-width="3.30" stroke-linecap="round" fill="none" opacity="0.88"/>
 </svg>

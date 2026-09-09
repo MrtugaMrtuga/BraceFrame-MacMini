@@ -1,18 +1,22 @@
 import { el } from "../lib/dom";
 import { todayISO } from "../lib/dates";
-import { addPhoto } from "../db/store";
+import { addPhoto, photosOnDate, type Pose } from "../db/store";
 import { icon } from "../lib/icons";
 import { POSES, poseHint } from "../capture/poses";
 import { createGuideOverlay } from "../capture/guides";
+import { facingFromTrack, shouldMirrorPreview } from "../capture/mirror";
 
 export async function renderCaptura(root: HTMLElement): Promise<void> {
   let step = 0;
   let stream: MediaStream | null = null;
   let flashOn = false;
-  let snapshot: Blob | null = null;
+  let busy = false;
+  const saved = new Set<Pose>((await photosOnDate(todayISO())).map((p) => p.pose));
 
   const video = el("video", { class: "vf-live", playsinline: "", autoplay: "", muted: "" });
   video.setAttribute("playsinline", "");
+  video.setAttribute("webkit-playsinline", "");
+  const stage = el("div", { class: "vf-stage", "data-mirror": "off" }, video);
   const preview = el("img", { class: "preview hidden", alt: "" });
   const fallback = el("div", { class: "vf-fallback hidden" });
   const file = el("input", { class: "file-input", type: "file", accept: "image/*" });
@@ -20,13 +24,13 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
 
   const { frame, apply: applyGuide } = createGuideOverlay();
   const hint = el("p", { class: "vf-hint" }, poseHint(POSES[0], 0));
-  const finder = el("div", { class: "viewfinder" }, video, preview, fallback, frame, hint);
+  const finder = el("div", { class: "viewfinder" }, stage, preview, fallback, frame, hint);
 
   const steps = el("div", { class: "steps" });
   const stepBtns = POSES.map((p, i) => {
     const b = el("button", { class: `step${i === 0 ? " active" : ""}`, type: "button" }, `${i + 1} · ${p.label}`);
     b.addEventListener("click", () => {
-      if (snapshot) return;
+      if (busy) return;
       step = i;
       sync();
     });
@@ -60,19 +64,31 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
   );
   root.replaceChildren(screen);
 
+  const setMirror = (on: boolean) => {
+    stage.classList.toggle("is-mirror", on);
+    stage.dataset.mirror = on ? "user" : "off";
+    video.classList.toggle("is-environment", !on);
+  };
+
+  const liveHidden = () => fallback.classList.contains("hidden") === false;
+
   const sync = () => {
     const pose = POSES[step];
     applyGuide(pose);
     hint.textContent = poseHint(pose, step);
-    stepBtns.forEach((b, i) => b.classList.toggle("active", i === step));
-    preview.classList.toggle("hidden", !snapshot);
-    video.classList.toggle("hidden", Boolean(snapshot) || fallback.classList.contains("hidden") === false);
+    stepBtns.forEach((b, i) => {
+      b.classList.toggle("active", i === step);
+      b.classList.toggle("done", saved.has(POSES[i].id));
+    });
+    preview.classList.add("hidden");
+    video.classList.toggle("hidden", liveHidden());
   };
 
   const showFallback = () => {
     stopStream();
     fallback.classList.remove("hidden");
     video.classList.add("hidden");
+    setMirror(false);
   };
 
   const stopStream = () => {
@@ -91,6 +107,8 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
         video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 1280 } },
       });
       video.srcObject = stream;
+      const facing = facingFromTrack(stream.getVideoTracks()[0]);
+      setMirror(shouldMirrorPreview(facing));
       await video.play();
       fallback.classList.add("hidden");
     } catch {
@@ -99,66 +117,87 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
   };
 
   const grabFrame = async (): Promise<Blob | null> => {
-    const w = video.videoWidth || 1080;
-    const h = video.videoHeight || 1440;
+    if (!video.videoWidth) return null;
+    const w = video.videoWidth;
+    const h = video.videoHeight;
     const canvas = document.createElement("canvas");
     canvas.width = w;
     canvas.height = h;
     const ctx = canvas.getContext("2d");
     if (!ctx) return null;
+    // Raw sensor frame — do not scaleX here (preview mirror is CSS on .vf-stage only).
     ctx.drawImage(video, 0, 0, w, h);
     return new Promise((resolve) => canvas.toBlob((b) => resolve(b), "image/jpeg", 0.88));
   };
 
-  const setSnapshot = (blob: Blob) => {
-    snapshot = blob;
-    preview.src = URL.createObjectURL(blob);
-    preview.classList.remove("hidden");
-    video.classList.add("hidden");
-    fallback.classList.add("hidden");
-    status.textContent = "Gostas? Toca no obturador para guardar.";
-  };
-
-  const persist = async (blob: Blob) => {
-    const pose = POSES[step].id;
-    await addPhoto({ pose, date: todayISO(), blob });
-    snapshot = null;
-    preview.classList.add("hidden");
-    status.textContent = `${POSES[step].label} guardada.`;
-    if (step < 2) {
+  const persistAndAdvance = async (blob: Blob) => {
+    const pose = POSES[step];
+    const date = todayISO();
+    await addPhoto({ pose: pose.id, date, blob });
+    saved.add(pose.id);
+    if (step < POSES.length - 1) {
       step += 1;
       sync();
       if (!stream) fallback.classList.remove("hidden");
-      else video.classList.remove("hidden");
-    } else {
-      location.hash = "#/";
+      else {
+        fallback.classList.add("hidden");
+        video.classList.remove("hidden");
+      }
+      status.textContent = `${pose.label} guardada.`;
+      return;
+    }
+    stopStream();
+    status.textContent = "As três fotos de hoje estão guardadas.";
+    location.hash = "#/galeria";
+  };
+
+  const runCapture = async (blob: Blob | null) => {
+    if (!blob) return;
+    busy = true;
+    shutter.disabled = true;
+    try {
+      await persistAndAdvance(blob);
+    } finally {
+      busy = false;
+      shutter.disabled = false;
     }
   };
 
   shutter.addEventListener("click", async () => {
-    if (fallback.classList.contains("hidden") === false && !snapshot) {
+    if (busy) return;
+    if (liveHidden()) {
       file.click();
       return;
     }
-    if (!snapshot) {
+    busy = true;
+    shutter.disabled = true;
+    try {
       if (flashOn) document.body.style.background = "#fff";
       const blob = await grabFrame();
       document.body.style.background = "";
-      if (blob) setSnapshot(blob);
+      if (!blob) {
+        status.textContent = "A câmara ainda não está pronta.";
+        return;
+      }
       try {
         navigator.vibrate?.(10);
       } catch {
         /* ignore */
       }
-      return;
+      await persistAndAdvance(blob);
+    } finally {
+      busy = false;
+      shutter.disabled = false;
     }
-    await persist(snapshot);
   });
 
   retake.addEventListener("click", () => {
-    snapshot = null;
+    if (busy) return;
     preview.classList.add("hidden");
-    if (stream) video.classList.remove("hidden");
+    if (stream) {
+      fallback.classList.add("hidden");
+      video.classList.remove("hidden");
+    } else fallback.classList.remove("hidden");
     status.textContent = "";
     sync();
   });
@@ -181,9 +220,9 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
 
   file.addEventListener("change", async () => {
     const f = file.files?.[0];
-    if (!f) return;
+    if (!f || busy) return;
     file.value = "";
-    await persist(f);
+    await runCapture(f);
   });
 
   const observer = new MutationObserver(() => {

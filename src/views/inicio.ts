@@ -1,6 +1,6 @@
 import { el } from "../lib/dom";
 import { daysBetween, formatDayMonth, todayISO, weekNumber } from "../lib/dates";
-import { listPhotos, loadProfile, type Photo } from "../db/store";
+import { latestSessionDate, listPhotos, loadProfile, photosByPoseOnDate, type Photo } from "../db/store";
 import {
   dayMarks,
   enabledHygieneItems,
@@ -32,7 +32,7 @@ export async function renderInicio(root: HTMLElement): Promise<void> {
   const week = weekNumber(days);
   const total = profile.treatmentWeeks || 14;
   const photos = await listPhotos();
-  const latest = uniqueLatest(photos, 3);
+  const latest = photosByPoseOnDate(photos, latestSessionDate(photos) ?? todayISO());
   const items = enabledHygieneItems(profile);
   const streak = hygieneStreak(items);
   const doneToday = isDayComplete(todayISO(), items);
@@ -156,18 +156,6 @@ function hygieneRow(item: HygieneItem, checked: boolean, onToggle: () => void): 
   box.checked = checked;
   box.addEventListener("change", onToggle);
   return el("label", { class: "check-row" }, box, el("span", {}, hygieneLabel(item)));
-}
-
-function uniqueLatest(photos: Photo[], n: number): Photo[] {
-  const seen = new Set<string>();
-  const out: Photo[] = [];
-  for (const p of photos) {
-    if (seen.has(p.date)) continue;
-    seen.add(p.date);
-    out.push(p);
-    if (out.length >= n) break;
-  }
-  return out;
 }
 
 function nextAppointmentLine(iso?: string): string {

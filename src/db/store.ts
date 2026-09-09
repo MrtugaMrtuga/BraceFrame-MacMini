@@ -96,15 +96,35 @@ export function patchProfile(partial: Partial<Profile>): Profile {
   return next;
 }
 
+/** One slot per pose per day — Frente / Sorriso / Oclusão never share a key. */
+export function photoRecordId(pose: Pose, date: string): string {
+  return `${date}:${pose}`;
+}
+
+export function photosByPoseOnDate(photos: Photo[], date: string): Photo[] {
+  const day = photos.filter((p) => p.date === date);
+  return (["frente", "sorriso", "oclusao"] as const)
+    .map((pose) => day.find((p) => p.pose === pose))
+    .filter((p): p is Photo => Boolean(p));
+}
+
+export function latestSessionDate(photos: Photo[]): string | undefined {
+  if (!photos.length) return undefined;
+  return photos.reduce((best, p) => (p.date > best ? p.date : best), photos[0].date);
+}
+
 export async function addPhoto(photo: Omit<Photo, "id" | "createdAt">): Promise<Photo> {
-  const record: Photo = {
-    ...photo,
-    id: crypto.randomUUID(),
-    createdAt: Date.now(),
-  };
+  const id = photoRecordId(photo.pose, photo.date);
   const db = await openDb();
   const tx = db.transaction("photos", "readwrite");
-  tx.objectStore("photos").put(record);
+  const store = tx.objectStore("photos");
+  const existing = await reqTo<Photo | undefined>(store.get(id));
+  const record: Photo = {
+    ...photo,
+    id,
+    createdAt: existing?.createdAt ?? Date.now(),
+  };
+  store.put(record);
   await txDone(tx);
   db.close();
   patchProfile({ lastCaptureDate: photo.date });
