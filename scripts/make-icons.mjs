@@ -35,10 +35,12 @@ const markSourcePath = path.join(outDir, "icon-1024.png");
 const markSource = existsSync(markSourcePath) ? await readFile(markSourcePath) : svg;
 
 for (const size of markSizes) {
+  const dest = path.join(outDir, `mark-${size}.png`);
+  if (existsSync(dest)) continue;
   await sharp(markSource)
     .resize(size, size, { fit: "fill" })
     .png({ compressionLevel: 9 })
-    .toFile(path.join(outDir, `mark-${size}.png`));
+    .toFile(dest);
 }
 
 console.log("icons ok");
