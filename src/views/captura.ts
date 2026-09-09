@@ -11,7 +11,7 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
   let flashOn = false;
   let snapshot: Blob | null = null;
 
-  const video = el("video", { playsinline: "", autoplay: "", muted: "" });
+  const video = el("video", { class: "vf-live", playsinline: "", autoplay: "", muted: "" });
   video.setAttribute("playsinline", "");
   const preview = el("img", { class: "preview hidden", alt: "" });
   const fallback = el("div", { class: "vf-fallback hidden" });

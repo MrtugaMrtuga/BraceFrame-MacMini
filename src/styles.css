@@ -288,6 +288,11 @@ img {
   object-fit: cover;
 }
 
+/* Selfie preview only — captured stills stay unmirrored. */
+.viewfinder video.vf-live {
+  transform: scaleX(-1);
+}
+
 .vf-frame {
   position: absolute;
   inset: 0;
