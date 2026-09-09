@@ -11,6 +11,7 @@ import {
   type HygieneItem,
 } from "../db/hygiene";
 import { icon } from "../lib/icons";
+import { homeMarkSize, homeMarkSrc } from "../lib/marks";
 import { linkCard } from "../lib/nav";
 import { isKidsTheme } from "../theme";
 
@@ -42,10 +43,6 @@ export async function renderInicio(root: HTMLElement): Promise<void> {
   const settings = el("a", { class: "icon-btn settings-btn", href: "#/definicoes", "aria-label": "Definições" });
   settings.innerHTML = icon("settings");
 
-  const badge = kids
-    ? streakBadge(streak)
-    : el("span", { class: "chip" }, `Semana ${week}`);
-
   const cta = el("a", { class: "cta", href: "#/captura" }, "Tirar fotos de hoje");
   const thumbs = el("div", { class: "thumbs" });
   for (let i = 0; i < 3; i++) thumbs.append(thumb(latest[i]));
@@ -71,23 +68,18 @@ export async function renderInicio(root: HTMLElement): Promise<void> {
     : `${week} de ${total} semanas`;
 
   const children: Array<Node | string> = [
-    el(
-      "div",
-      { class: "top-row" },
-      el(
-        "div",
-        {},
-        el("h1", { class: "title" }, "BraceFrame"),
-        el("p", { class: "tagline" }, "o teu sorriso em curso"),
-      ),
-      el("div", { class: "top-actions" }, badge, settings),
-    ),
+    homeHeader(kids, settings),
+  ];
+
+  if (kids) children.push(streakBadge(streak));
+
+  children.push(
     el("p", { class: "hero-stat" }, `${days} dias com aparelho`),
     kids
       ? el("p", { class: "next-line" }, nextAppointmentLine(profile.nextAppointmentDate))
       : appointmentRow(profile.nextAppointmentDate),
     cta,
-  ];
+  );
 
   if (kids) children.push(nudgeCard(photos.length > 0, streak));
 
@@ -113,7 +105,34 @@ export async function renderInicio(root: HTMLElement): Promise<void> {
     ),
   );
 
-  root.replaceChildren(el("section", { class: "screen" }, ...children));
+  root.replaceChildren(el("section", { class: "screen screen-home" }, ...children));
+}
+
+function homeHeader(kids: boolean, settings: HTMLElement): HTMLElement {
+  const size = homeMarkSize(kids);
+  const mark = el("img", {
+    class: "home-header-mark",
+    src: homeMarkSrc(kids),
+    alt: "",
+    width: String(size),
+    height: String(size),
+  });
+  return el(
+    "header",
+    { class: "home-header" },
+    el(
+      "div",
+      { class: "home-header-brand" },
+      mark,
+      el(
+        "div",
+        { class: "home-header-wordmark" },
+        el("h1", { class: "home-header-title" }, "BraceFrame"),
+        el("p", { class: "home-header-tagline" }, "o teu sorriso em curso"),
+      ),
+    ),
+    settings,
+  );
 }
 
 function streakBadge(streak: number): HTMLElement {
