@@ -60,6 +60,66 @@ img {
   padding-bottom: calc(var(--tab-h) + var(--safe-bottom) + 12px);
 }
 
+.screen.screen-home {
+  padding-top: calc(56px + var(--safe-top));
+  padding-left: var(--header-pad-x, 24px);
+  padding-right: var(--header-pad-x, 24px);
+}
+
+.home-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 0 var(--header-space-under);
+  margin: 0;
+  border-bottom: 1px solid var(--header-line, var(--line));
+}
+
+.home-header-brand {
+  display: flex;
+  align-items: center;
+  gap: var(--header-gap);
+  min-width: 0;
+}
+
+.home-header-mark {
+  width: var(--header-mark-size);
+  height: var(--header-mark-size);
+  flex: 0 0 var(--header-mark-size);
+  object-fit: contain;
+}
+
+.home-header-wordmark {
+  min-width: 0;
+}
+
+.home-header-title {
+  margin: 0;
+  font-size: var(--header-title-size);
+  line-height: 1.05;
+  letter-spacing: var(--header-title-tracking);
+  font-weight: var(--header-title-weight);
+  color: var(--header-title-ink, var(--ink));
+}
+
+.home-header-tagline {
+  margin: 2px 0 0;
+  font-size: var(--header-tagline-size);
+  line-height: 1.25;
+  font-weight: 500;
+  color: var(--header-tagline-mute, var(--mute));
+}
+
+.screen-home .hero-stat {
+  margin-top: 16px;
+}
+
+.screen-home .chip.streak {
+  margin-top: 16px;
+  width: fit-content;
+}
+
 .top-row {
   display: flex;
   align-items: flex-start;

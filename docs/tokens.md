@@ -37,7 +37,8 @@ O mark é o viewfinder + sorriso em coral.
 
 - Fonte de verdade: `public/icons/icon.svg`
 - PNG 1024: `docs/icon-1024.png` e `public/icons/icon-1024.png`
-- Não gerar um ícone alternativo. Tamanhos PWA saem de `npm run icons`.
+- Header Início: `mark-40/44/52/64/88/128.png` (mesmo mark). Ver [`HEADER.md`](HEADER.md).
+- Não gerar um ícone alternativo. Tamanhos PWA e marks saem de `npm run icons`.
 
 ## Copy (PT-PT)
 

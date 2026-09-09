@@ -21,6 +21,8 @@ Coral partilhado: `#ff5a4a`. Sem chrome GoSmile. Sem mascotes.
 - **Kids:** «Continua o streak» · «Streak · N dias» · galeria vazia «Ainda sem fotos»
 - **Adultos:** sem UI de streak nem ouro · «42 dias com aparelho» · galeria vazia «Sem fotos ainda.»
 
+Header Início (mark + BraceFrame + tagline): [`HEADER.md`](HEADER.md).
+
 ## Boards
 
 Colocar os PNG bloqueados em `docs/v2/` quando existirem no repo:

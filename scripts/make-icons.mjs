@@ -1,4 +1,5 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { existsSync } from "node:fs";
+import { mkdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import sharp from "sharp";
@@ -6,7 +7,6 @@ import sharp from "sharp";
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const svgPath = path.join(root, "public/icons/icon.svg");
 const outDir = path.join(root, "public/icons");
-const docsDir = path.join(root, "docs");
 
 const sizes = [
   ["icon-1024.png", 1024],
@@ -16,16 +16,29 @@ const sizes = [
   ["favicon-32.png", 32],
 ];
 
+/** Locked Home header marks — same coral frame + smile as the app icon. */
+const markSizes = [40, 44, 52, 64, 88, 128];
+
 const svg = await readFile(svgPath);
 await mkdir(outDir, { recursive: true });
-await mkdir(docsDir, { recursive: true });
 
 for (const [name, size] of sizes) {
+  const dest = path.join(outDir, name);
+  if (existsSync(dest)) continue;
   await sharp(svg)
     .resize(size, size, { fit: "fill" })
     .png({ compressionLevel: 9 })
-    .toFile(path.join(outDir, name));
+    .toFile(dest);
 }
 
-await writeFile(path.join(docsDir, "icon-1024.png"), await readFile(path.join(outDir, "icon-1024.png")));
+const markSourcePath = path.join(outDir, "icon-1024.png");
+const markSource = existsSync(markSourcePath) ? await readFile(markSourcePath) : svg;
+
+for (const size of markSizes) {
+  await sharp(markSource)
+    .resize(size, size, { fit: "fill" })
+    .png({ compressionLevel: 9 })
+    .toFile(path.join(outDir, `mark-${size}.png`));
+}
+
 console.log("icons ok");

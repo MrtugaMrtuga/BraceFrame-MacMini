@@ -16,6 +16,17 @@
   --title-weight: 700;
   --title-size: 24px;
   --title-tracking: -0.02em;
+  --header-mark-size: 44px;
+  --header-title-size: 28px;
+  --header-title-weight: 700;
+  --header-title-tracking: -0.02em;
+  --header-title-ink: #0a0a0a;
+  --header-tagline-size: 13px;
+  --header-tagline-mute: #6e6e73;
+  --header-gap: 12px;
+  --header-pad-x: 24px;
+  --header-space-under: 16px;
+  --header-line: #d2d2d7;
   --cta-bg: #0a0a0a;
   --cta-fg: #ffffff;
   --cta-shadow: none;
