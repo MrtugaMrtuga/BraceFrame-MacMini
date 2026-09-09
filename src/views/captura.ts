@@ -120,7 +120,24 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
     preview.src = URL.createObjectURL(blob);
     preview.classList.remove("hidden");
     video.classList.add("hidden");
-    status.textContent = "Gostas? Dispara de novo para guardar.";
+    fallback.classList.add("hidden");
+    status.textContent = "Gostas? Toca no obturador para guardar.";
+  };
+
+  const persist = async (blob: Blob) => {
+    const pose = POSES[step].id;
+    await addPhoto({ pose, date: todayISO(), blob });
+    snapshot = null;
+    preview.classList.add("hidden");
+    status.textContent = `${POSES[step].label} guardada.`;
+    if (step < 2) {
+      step += 1;
+      sync();
+      if (!stream) fallback.classList.remove("hidden");
+      else video.classList.remove("hidden");
+    } else {
+      location.hash = "#/";
+    }
   };
 
   shutter.addEventListener("click", async () => {
@@ -140,19 +157,7 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
       }
       return;
     }
-    const pose = POSES[step].id;
-    await addPhoto({ pose, date: todayISO(), blob: snapshot });
-    snapshot = null;
-    preview.classList.add("hidden");
-    video.classList.remove("hidden");
-    status.textContent = `${POSES[step].label} guardada.`;
-    if (step < 2) {
-      step += 1;
-      sync();
-    } else {
-      status.textContent = "Feito · 3 fotos de hoje.";
-      location.hash = "#/";
-    }
+    await persist(snapshot);
   });
 
   retake.addEventListener("click", () => {
@@ -179,10 +184,11 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
     }
   });
 
-  file.addEventListener("change", () => {
+  file.addEventListener("change", async () => {
     const f = file.files?.[0];
     if (!f) return;
-    setSnapshot(f);
+    file.value = "";
+    await persist(f);
   });
 
   const observer = new MutationObserver(() => {

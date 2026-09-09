@@ -3,8 +3,8 @@ import { todayISO } from "../lib/dates";
 import { addAppointment, patchProfile } from "../db/store";
 
 export function renderOnboarding(root: HTMLElement, onDone: () => void): void {
-  const mark = el("div", { class: "mark", "aria-hidden": "true" });
-  mark.innerHTML = `<svg width="40" height="40" viewBox="0 0 1024 1024"><g fill="none" stroke="#ff5a4a" stroke-width="48" stroke-linecap="round"><path d="M268 318h118M268 318v118M756 318H638M756 318v118M268 706h118M268 706V588M756 706H638M756 706V588"/><path d="M352 790c48 78 272 78 320 0" stroke-width="36"/><path d="M392 828c36 48 204 48 240 0" stroke-width="24"/></g></svg>`;
+  const mark = el("div", { class: "mark" });
+  mark.append(el("img", { src: "/icons/icon-192.png", alt: "BraceFrame", width: "56", height: "56" }));
 
   const place = el("input", {
     type: "date",

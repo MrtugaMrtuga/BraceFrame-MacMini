@@ -682,6 +682,12 @@ img {
   display: grid;
   place-items: center;
   margin-bottom: 28px;
+  overflow: hidden;
+}
+
+.onboarding .mark img {
+  width: 72px;
+  height: 72px;
 }
 
 .hidden {

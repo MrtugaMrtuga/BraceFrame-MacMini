@@ -51,10 +51,11 @@ export async function renderConsultas(root: HTMLElement): Promise<void> {
       await draw();
     });
 
-    const empty =
-      upcoming.length === 0
-        ? el("div", { class: "soft-box" }, "Nada mais marcado por agora. Quando fores à consulta, anota aqui.")
-        : null;
+    const empty = el(
+      "div",
+      { class: "soft-box" },
+      "Nada mais marcado por agora. Quando fores à consulta, anota aqui.",
+    );
 
     root.replaceChildren(
       el(
