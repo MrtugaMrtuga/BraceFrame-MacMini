@@ -6,6 +6,8 @@ import {
   patchProfile,
   type Appointment,
 } from "../db/store";
+import { enabledHygieneItems, isDayComplete } from "../db/hygiene";
+import { isKidsTheme } from "../theme";
 
 function showBanner(id: string, title: string, body: string): void {
   if (document.querySelector(`[data-banner="${id}"]`)) return;
@@ -65,6 +67,30 @@ export async function checkReminders(): Promise<void> {
       const banner = document.querySelector('[data-banner="weekly"] .x');
       banner?.addEventListener("click", () => patchProfile({ weeklyBannerDismissedOn: today }));
       void notify("BraceFrame", "Já passou uma semana. Fotos de hoje?");
+    }
+  }
+
+  const hygieneItems = enabledHygieneItems(profile);
+  if (hygieneItems.length && !isDayComplete(today, hygieneItems)) {
+    if (profile.hygieneBannerDismissedOn !== today) {
+      showBanner(
+        "hygiene",
+        isKidsTheme(profile.theme) ? "Continua o streak" : "Higiene de hoje",
+        isKidsTheme(profile.theme)
+          ? "Ainda falta um passo de hoje."
+          : "Ainda falta um passo. Dois minutos e fica feito.",
+      );
+      document
+        .querySelector('[data-banner="hygiene"] .x')
+        ?.addEventListener("click", () => patchProfile({ hygieneBannerDismissedOn: today }));
+    }
+    if (
+      "Notification" in window &&
+      Notification.permission === "granted" &&
+      profile.hygieneNotifiedOn !== today
+    ) {
+      void notify("BraceFrame", "Higiene de hoje · ainda falta um passo.");
+      patchProfile({ hygieneNotifiedOn: today });
     }
   }
 

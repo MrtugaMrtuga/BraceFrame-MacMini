@@ -12,6 +12,10 @@ export default defineConfig({
         "icons/icon-192.png",
         "icons/icon-512.png",
         "icons/icon-1024.png",
+        "conselhos/higiene.svg",
+        "conselhos/limpeza.svg",
+        "conselhos/material.svg",
+        "conselhos/higiene.mp4",
       ],
       manifest: {
         name: "BraceFrame",
@@ -23,8 +27,8 @@ export default defineConfig({
         scope: "./",
         display: "standalone",
         orientation: "portrait",
-        background_color: "#fafafa",
-        theme_color: "#fafafa",
+        background_color: "#f5f5f7",
+        theme_color: "#f5f5f7",
         categories: ["health", "lifestyle", "photo"],
         icons: [
           {
@@ -54,7 +58,7 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ["**/*.{js,css,html,svg,png,webmanifest}"],
+        globPatterns: ["**/*.{js,css,html,svg,png,webmanifest,mp4}"],
         navigateFallback: "index.html",
       },
     }),

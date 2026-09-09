@@ -2,7 +2,7 @@
 
 PWA do diário de sorriso — «o teu sorriso em curso».
 
-Webapp local-first (IndexedDB). Sem conta. Sem portal de clínica. Sem IA. Sem pagamentos nesta v1.
+Webapp local-first (IndexedDB + localStorage). Sem conta. Sem portal de clínica. Sem IA. Sem pagamentos.
 
 ## Correr
 
@@ -27,17 +27,25 @@ Abre no telemóvel (Safari iOS ou Chrome Android) via a URL da rede local, ou no
 
 HTTPS (ou localhost) é obrigatório para câmara, PWA e notificações.
 
-## O que entra na v1
+## Tabs e rotas
 
-| Tab | Função |
+| Sítio | Função |
 | --- | --- |
-| Início | Dias com aparelho, CTA «Tirar fotos de hoje», últimas, semana |
-| Captura | Frente · Sorriso · Oclusão · `getUserMedia` + fallback de ficheiro |
-| Galeria | Slider vertical «Antes / Agora» |
-| Consultas | CRUD local, lembrete in-app, `.ics` se o push falhar |
-| Reveal | Vídeo 9:16 (Canvas + MediaRecorder) com marca de água Free |
+| Início | Dias com aparelho, higiene, Conselhos, CTA «Tirar fotos de hoje» |
+| Captura | Frente · Sorriso · Oclusão |
+| Galeria | Slider «Antes / Agora» (vazia: copy por pele) |
+| Consultas | CRUD local, lembrete, `.ics` |
+| Reveal | Time-lapse 9:16 + apresentação do caso (marca de água Free) |
+| Conselhos | `#/conselhos` — vídeos locais + atalhos |
+| Urgência | `#/urgencia` — fio preso / afta / bracket solto |
+| Comida | `#/comida` — semáforo verde / amarelo / vermelho |
+| Definições | `#/definicoes` — pele Kids / Adultos |
 
-**Pro** é só um stub «Pro em breve» (reveal limpo). Sem StoreKit / Stripe nesta versão.
+**Pro** é só um stub «Pro em breve». Sem StoreKit / Stripe.
+
+## Fatia A
+
+Lista completa: [`docs/fatia-a.md`](docs/fatia-a.md). LOOK V2 (duas peles): [`docs/LOOK-v2.md`](docs/LOOK-v2.md).
 
 ## Host futuro
 
@@ -45,4 +53,4 @@ Deploy pensado para `*.evob.org` / Mac Mini. Vercel não é o destino principal.
 
 ## Marca
 
-Tokens e ícone bloqueado: [`docs/tokens.md`](docs/tokens.md). Boards: [`docs/design.md`](docs/design.md). Ícone 1024: [`docs/icon-1024.png`](docs/icon-1024.png).
+Tokens V2: [`src/styles/tokens-kids.css`](src/styles/tokens-kids.css) e [`src/styles/tokens-adultos.css`](src/styles/tokens-adultos.css). Boards: [`docs/design.md`](docs/design.md). Ícone 1024: [`docs/icon-1024.png`](docs/icon-1024.png).
