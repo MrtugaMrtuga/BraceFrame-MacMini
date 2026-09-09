@@ -1,13 +1,9 @@
 import { el } from "../lib/dom";
 import { todayISO } from "../lib/dates";
-import { addPhoto, type Pose } from "../db/store";
+import { addPhoto } from "../db/store";
 import { icon } from "../lib/icons";
-
-const POSES: Array<{ id: Pose; label: string }> = [
-  { id: "frente", label: "Frente" },
-  { id: "sorriso", label: "Sorriso" },
-  { id: "oclusao", label: "Oclusão" },
-];
+import { POSES, poseHint } from "../capture/poses";
+import { createGuideOverlay } from "../capture/guides";
 
 export async function renderCaptura(root: HTMLElement): Promise<void> {
   let step = 0;
@@ -22,9 +18,8 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
   const file = el("input", { class: "file-input", type: "file", accept: "image/*" });
   file.setAttribute("capture", "user");
 
-  const poseChip = el("span", { class: "vf-pose" }, POSES[0].label);
-  const hint = el("p", { class: "vf-hint" }, "Alinha o sorriso · 1 de 3");
-  const frame = el("div", { class: "vf-frame" }, poseChip);
+  const { frame, apply: applyGuide } = createGuideOverlay();
+  const hint = el("p", { class: "vf-hint" }, poseHint(POSES[0], 0));
   const finder = el("div", { class: "viewfinder" }, video, preview, fallback, frame, hint);
 
   const steps = el("div", { class: "steps" });
@@ -67,8 +62,8 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
 
   const sync = () => {
     const pose = POSES[step];
-    poseChip.textContent = pose.label;
-    hint.textContent = `Alinha o sorriso · ${step + 1} de 3`;
+    applyGuide(pose);
+    hint.textContent = poseHint(pose, step);
     stepBtns.forEach((b, i) => b.classList.toggle("active", i === step));
     preview.classList.toggle("hidden", !snapshot);
     video.classList.toggle("hidden", Boolean(snapshot) || fallback.classList.contains("hidden") === false);

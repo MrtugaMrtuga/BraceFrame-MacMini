@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="980" viewBox="0 0 780 980" fill="none">
+  <path d="M170 470 C250 390, 530 390, 610 470 C560 560, 490 610, 390 620 C290 610, 220 560, 170 470 Z" stroke="#ff5a4a" stroke-width="2.4" stroke-linejoin="round" fill="none" opacity="0.95"/>
+  <path d="M210 485 C280 430, 500 430, 570 485 C530 545, 460 575, 390 580 C320 575, 250 545, 210 485 Z" stroke="#ff5a4a" stroke-width="2.04" stroke-linejoin="round" fill="none" opacity="0.75"/>
+  <rect x="257" y="459.7" width="29.8" height="35.9" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.85"/>
+  <rect x="290.8" y="458.4" width="29.8" height="37.9" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.85"/>
+  <rect x="324.5" y="457" width="29.8" height="40" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.85"/>
+  <rect x="358.2" y="455.7" width="29.8" height="42" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.85"/>
+  <rect x="392" y="455.7" width="29.8" height="42" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.85"/>
+  <rect x="425.8" y="457" width="29.8" height="40" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.85"/>
+  <rect x="459.5" y="458.4" width="29.8" height="37.9" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.85"/>
+  <rect x="493.2" y="459.7" width="29.8" height="35.9" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.85"/>
+  <rect x="272" y="522.1" width="26" height="41.1" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.75"/>
+  <rect x="302" y="521.5" width="26" height="40.2" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.75"/>
+  <rect x="332" y="520.9" width="26" height="39.4" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.75"/>
+  <rect x="362" y="520.3" width="26" height="38.5" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.75"/>
+  <rect x="392" y="520.3" width="26" height="38.5" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.75"/>
+  <rect x="422" y="520.9" width="26" height="39.4" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.75"/>
+  <rect x="452" y="521.5" width="26" height="40.2" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.75"/>
+  <rect x="482" y="522.1" width="26" height="41.1" rx="2" stroke="#ff5a4a" stroke-width="1.6" fill="none" opacity="0.75"/>
+  <line x1="390" y1="448" x2="390" y2="575" stroke="#ff5a4a" stroke-width="1.12" stroke-dasharray="4 5" opacity="0.45"/>
+</svg>
