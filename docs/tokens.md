@@ -45,7 +45,7 @@ Tom de amigo. Nunca «paciente».
 
 - Tagline: «o teu sorriso em curso»
 - CTA: «Tirar fotos de hoje»
-- Captura: «Alinha o sorriso» · Frente · Sorriso · Oclusão
+- Captura: «Alinha a frente / o sorriso / a oclusão · N de 3» · Frente · Sorriso · Oclusão
 - Galeria: «Antes / Agora»
 - Reveal: «Partilhar no Reels»
 - Tabs: Início · Captura · Galeria · Consultas · Reveal

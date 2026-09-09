@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="780" height="980" viewBox="0 0 780 980" fill="none">
+  <g stroke="#ff5a4a" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round" fill="none" opacity="0.9">
+    <path d="M156 400 V328 H228"/>
+    <path d="M624 400 V328 H552"/>
+    <path d="M156 580 V652 H228"/>
+    <path d="M624 580 V652 H552"/>
+  </g>
+  <path d="M200 428 C290 348, 490 348, 580 428" stroke="#ff5a4a" stroke-width="4.2" stroke-linecap="round" fill="none" opacity="0.95"/>
+  <path d="M200 552 C290 632, 490 632, 580 552" stroke="#ff5a4a" stroke-width="4.2" stroke-linecap="round" fill="none" opacity="0.95"/>
+  <line x1="390" y1="330" x2="390" y2="650" stroke="#ff5a4a" stroke-width="1.96" stroke-dasharray="4 5" opacity="0.45"/>
+  <line x1="210" y1="490" x2="570" y2="490" stroke="#ff5a4a" stroke-width="3.5" stroke-linecap="round" opacity="0.9"/>
+  <g stroke="#ff5a4a" stroke-width="2.8" stroke-linecap="round" opacity="0.8">
+    <line x1="220" y1="476" x2="220" y2="504"/>
+    <line x1="254" y1="476" x2="254" y2="504"/>
+    <line x1="288" y1="476" x2="288" y2="504"/>
+    <line x1="322" y1="476" x2="322" y2="504"/>
+    <line x1="356" y1="476" x2="356" y2="504"/>
+    <line x1="390" y1="468" x2="390" y2="512"/>
+    <line x1="424" y1="476" x2="424" y2="504"/>
+    <line x1="458" y1="476" x2="458" y2="504"/>
+    <line x1="492" y1="476" x2="492" y2="504"/>
+    <line x1="526" y1="476" x2="526" y2="504"/>
+    <line x1="560" y1="476" x2="560" y2="504"/>
+  </g>
+</svg>

@@ -288,18 +288,38 @@ img {
   object-fit: cover;
 }
 
+/* Selfie preview only — captured stills stay unmirrored. */
+.viewfinder video.vf-live {
+  transform: scaleX(-1);
+}
+
 .vf-frame {
   position: absolute;
-  inset: 18% 14%;
-  border: 2px solid var(--accent);
-  border-radius: 8px;
+  inset: 0;
   pointer-events: none;
+  color: var(--accent);
+}
+
+.vf-guide-asset,
+.vf-guide-fallback,
+.vf-guide-fallback .vf-guide-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.35));
+}
+
+.vf-guide-fallback {
+  color: var(--accent);
 }
 
 .vf-pose {
   position: absolute;
   left: 50%;
-  bottom: -14px;
+  bottom: 42px;
   transform: translateX(-50%);
   height: 28px;
   padding: 0 12px;
