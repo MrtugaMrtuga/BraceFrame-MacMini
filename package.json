@@ -5,8 +5,10 @@
   "type": "module",
   "scripts": {
     "icons": "node scripts/make-icons.mjs",
+    "guides": "node scripts/export-guides.mjs",
+    "check:captura": "node scripts/check-captura.mjs",
     "dev": "vite",
-    "build": "npm run icons && tsc --noEmit && vite build",
+    "build": "npm run icons && npm run guides && npm run check:captura && tsc --noEmit && vite build",
     "preview": "vite preview --host"
   },
   "devDependencies": {

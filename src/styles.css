@@ -288,8 +288,18 @@ img {
   object-fit: cover;
 }
 
-/* Selfie preview only — captured stills stay unmirrored. */
-.viewfinder video.vf-live {
+/* Live pixels only. Overlay (.vf-frame) stays outside so guides stay aligned. */
+.vf-stage {
+  position: absolute;
+  inset: 0;
+}
+
+/*
+  ONE selfie flip, on the stage, never on <video> and never on canvas.
+  scaleX(-1) on <video> stacked with WebKit's user-facing compositor layer
+  (double-flip: move phone right → image went left).
+*/
+.vf-stage.is-mirror {
   transform: scaleX(-1);
 }
 
@@ -314,6 +324,26 @@ img {
 
 .vf-guide-fallback {
   color: var(--accent);
+}
+
+/* Hooks for Marahas drops — same filenames under public/guides/. */
+html.skin-adultos .vf-frame.guide-frente {
+  --guide-src: url("./guides/frente-adultos.svg");
+}
+html.skin-adultos .vf-frame.guide-sorriso {
+  --guide-src: url("./guides/sorriso-adultos.svg");
+}
+html.skin-adultos .vf-frame.guide-oclusao {
+  --guide-src: url("./guides/oclusao-adultos.svg");
+}
+html.skin-kids .vf-frame.guide-frente {
+  --guide-src: url("./guides/frente-kids.svg");
+}
+html.skin-kids .vf-frame.guide-sorriso {
+  --guide-src: url("./guides/sorriso-kids.svg");
+}
+html.skin-kids .vf-frame.guide-oclusao {
+  --guide-src: url("./guides/oclusao-kids.svg");
 }
 
 .vf-pose {

@@ -1,20 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="780" height="980" viewBox="0 0 780 980" fill="none">
-  <path d="M200 428 C290 348, 490 348, 580 428" stroke="#ff5a4a" stroke-width="2.4" stroke-linecap="round" fill="none" opacity="0.95"/>
-  <path d="M200 552 C290 632, 490 632, 580 552" stroke="#ff5a4a" stroke-width="2.4" stroke-linecap="round" fill="none" opacity="0.95"/>
-  <line x1="390" y1="330" x2="390" y2="650" stroke="#ff5a4a" stroke-width="1.12" stroke-dasharray="4 5" opacity="0.45"/>
-  <line x1="210" y1="490" x2="570" y2="490" stroke="#ff5a4a" stroke-width="2" stroke-linecap="round" opacity="0.9"/>
-  <g stroke="#ff5a4a" stroke-width="1.6" stroke-linecap="round" opacity="0.8">
-    <line x1="220" y1="478" x2="220" y2="502"/>
-    <line x1="254" y1="478" x2="254" y2="502"/>
-    <line x1="288" y1="478" x2="288" y2="502"/>
-    <line x1="322" y1="478" x2="322" y2="502"/>
-    <line x1="356" y1="478" x2="356" y2="502"/>
-    <line x1="390" y1="472" x2="390" y2="508"/>
-    <line x1="424" y1="478" x2="424" y2="502"/>
-    <line x1="458" y1="478" x2="458" y2="502"/>
-    <line x1="492" y1="478" x2="492" y2="502"/>
-    <line x1="526" y1="478" x2="526" y2="502"/>
-    <line x1="560" y1="478" x2="560" y2="502"/>
-  </g>
+  <path d="M200 400 C290 340, 490 340, 580 400" stroke="#ff5a4a" stroke-width="2.70" stroke-linecap="round" fill="none" opacity="0.95"/>
+  <path d="M200 580 C290 640, 490 640, 580 580" stroke="#ff5a4a" stroke-width="2.70" stroke-linecap="round" fill="none" opacity="0.95"/>
+  <line x1="390" y1="320" x2="390" y2="660" stroke="#ff5a4a" stroke-width="1.40" stroke-dasharray="5 6" opacity="0.50"/>
+  <line x1="200" y1="490" x2="580" y2="490" stroke="#ff5a4a" stroke-width="2.20" stroke-linecap="round" opacity="0.90"/>
+  <path d="M214 432 L236 432 L236 484 Q236 488 231 488 L219 488 Q214 488 214 484 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M243 428 L267 428 L267 484 Q267 488 261.5 488 L248.5 488 Q243 488 243 484 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M274 424 L302 424 L302 484 Q302 488 296 488 L280 488 Q274 488 274 484 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M309 420 L341 420 L341 484 Q341 488 335 488 L315 488 Q309 488 309 484 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M348 416 L388 416 L388 484 Q388 488 382 488 L354 488 Q348 488 348 484 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M392 416 L432 416 L432 484 Q432 488 426 488 L398 488 Q392 488 392 484 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M439 420 L471 420 L471 484 Q471 488 465 488 L445 488 Q439 488 439 484 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M478 424 L506 424 L506 484 Q506 488 500 488 L484 488 Q478 488 478 484 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M513 428 L537 428 L537 484 Q537 488 531.5 488 L518.5 488 Q513 488 513 484 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M544 432 L566 432 L566 484 Q566 488 561 488 L549 488 Q544 488 544 484 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M222 548 L244 548 L244 496 Q244 492 239 492 L227 492 Q222 492 222 496 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M251 552 L273 552 L273 496 Q273 492 268 492 L256 492 Q251 492 251 496 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M280 554 L306 554 L306 496 Q306 492 300.5 492 L285.5 492 Q280 492 280 496 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M313 556 L345 556 L345 496 Q345 492 339 492 L319 492 Q313 492 313 496 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M352 558 L388 558 L388 496 Q388 492 382 492 L358 492 Q352 492 352 496 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M392 558 L428 558 L428 496 Q428 492 422 492 L398 492 Q392 492 392 496 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M435 556 L467 556 L467 496 Q467 492 461 492 L441 492 Q435 492 435 496 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M474 554 L500 554 L500 496 Q500 492 494.5 492 L479.5 492 Q474 492 474 496 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M507 552 L529 552 L529 496 Q529 492 524 492 L512 492 Q507 492 507 496 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
+  <path d="M536 548 L558 548 L558 496 Q558 492 553 492 L541 492 Q536 492 536 496 Z" fill="none" stroke="#ff5a4a" stroke-width="2.20" stroke-linejoin="round"/>
 </svg>

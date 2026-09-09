@@ -4,6 +4,7 @@ import { addPhoto } from "../db/store";
 import { icon } from "../lib/icons";
 import { POSES, poseHint } from "../capture/poses";
 import { createGuideOverlay } from "../capture/guides";
+import { facingFromTrack, shouldMirrorPreview } from "../capture/mirror";
 
 export async function renderCaptura(root: HTMLElement): Promise<void> {
   let step = 0;
@@ -13,6 +14,8 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
 
   const video = el("video", { class: "vf-live", playsinline: "", autoplay: "", muted: "" });
   video.setAttribute("playsinline", "");
+  video.setAttribute("webkit-playsinline", "");
+  const stage = el("div", { class: "vf-stage", "data-mirror": "off" }, video);
   const preview = el("img", { class: "preview hidden", alt: "" });
   const fallback = el("div", { class: "vf-fallback hidden" });
   const file = el("input", { class: "file-input", type: "file", accept: "image/*" });
@@ -20,7 +23,7 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
 
   const { frame, apply: applyGuide } = createGuideOverlay();
   const hint = el("p", { class: "vf-hint" }, poseHint(POSES[0], 0));
-  const finder = el("div", { class: "viewfinder" }, video, preview, fallback, frame, hint);
+  const finder = el("div", { class: "viewfinder" }, stage, preview, fallback, frame, hint);
 
   const steps = el("div", { class: "steps" });
   const stepBtns = POSES.map((p, i) => {
@@ -60,6 +63,12 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
   );
   root.replaceChildren(screen);
 
+  const setMirror = (on: boolean) => {
+    stage.classList.toggle("is-mirror", on);
+    stage.dataset.mirror = on ? "user" : "off";
+    video.classList.toggle("is-environment", !on);
+  };
+
   const sync = () => {
     const pose = POSES[step];
     applyGuide(pose);
@@ -73,6 +82,7 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
     stopStream();
     fallback.classList.remove("hidden");
     video.classList.add("hidden");
+    setMirror(false);
   };
 
   const stopStream = () => {
@@ -91,6 +101,8 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
         video: { facingMode: "user", width: { ideal: 1280 }, height: { ideal: 1280 } },
       });
       video.srcObject = stream;
+      const facing = facingFromTrack(stream.getVideoTracks()[0]);
+      setMirror(shouldMirrorPreview(facing));
       await video.play();
       fallback.classList.add("hidden");
     } catch {
@@ -106,6 +118,7 @@ export async function renderCaptura(root: HTMLElement): Promise<void> {
     canvas.height = h;
     const ctx = canvas.getContext("2d");
     if (!ctx) return null;
+    // Raw sensor frame — do not scaleX here (preview mirror is CSS on .vf-stage only).
     ctx.drawImage(video, 0, 0, w, h);
     return new Promise((resolve) => canvas.toBlob((b) => resolve(b), "image/jpeg", 0.88));
   };

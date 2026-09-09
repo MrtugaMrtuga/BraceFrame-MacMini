@@ -1,34 +1,23 @@
 import { el } from "../lib/dom";
-import type { Pose } from "../db/store";
-import { isKidsTheme } from "../theme";
+import { loadProfile, type Pose } from "../db/store";
 import { POSES, type PoseConfig } from "./poses";
+import { GUIDE_HOOKS, guideAssetCandidates, resolveGuideSkin, type GuideSkin } from "./guide-assets";
 
-/** CSS hooks for per-step overlay art (`public/guides/{id}[-kids|-adultos].svg`). */
-export const GUIDE_HOOKS = ["guide-frente", "guide-sorriso", "guide-oclusao"] as const;
+export { GUIDE_HOOKS, guideAssetCandidates, resolveGuideSkin } from "./guide-assets";
 
-export function guideAssetCandidates(pose: Pose, kids = isKidsTheme()): string[] {
-  if (kids) {
-    return [
-      `./guides/${pose}-kids.svg`,
-      `./guides/${pose}-kids.png`,
-      `./guides/${pose}-adultos.svg`,
-      `./guides/${pose}.svg`,
-      `./guides/${pose}-adultos.png`,
-      `./guides/${pose}.png`,
-    ];
-  }
-  return [
-    `./guides/${pose}-adultos.svg`,
-    `./guides/${pose}.svg`,
-    `./guides/${pose}-adultos.png`,
-    `./guides/${pose}.png`,
-  ];
+function paintedSkin(): GuideSkin {
+  const root = document.documentElement;
+  return resolveGuideSkin({
+    className: root.className,
+    dataTheme: root.getAttribute("data-theme"),
+    profileTheme: loadProfile()?.theme,
+  });
 }
 
 const FALLBACK: Record<Pose, string> = {
-  frente: `<svg class="vf-guide-svg" viewBox="0 0 780 980" fill="none" aria-hidden="true"><ellipse cx="390" cy="490" rx="208" ry="318" stroke="currentColor" stroke-width="2.2"/><line x1="390" y1="172" x2="390" y2="808" stroke="currentColor" stroke-width="1.12" stroke-dasharray="4 5" opacity=".45"/><line x1="248" y1="396" x2="532" y2="396" stroke="currentColor" stroke-width="1.2" stroke-dasharray="4 5" opacity=".5"/><path d="M318 632 C358 612, 422 612, 462 632 M318 632 C358 652, 422 652, 462 632" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>`,
-  sorriso: `<svg class="vf-guide-svg" viewBox="0 0 780 980" fill="none" aria-hidden="true"><path d="M170 470 C250 390, 530 390, 610 470 C560 560, 490 610, 390 620 C290 610, 220 560, 170 470 Z" stroke="currentColor" stroke-width="2.4" stroke-linejoin="round"/><path d="M210 485 C280 430, 500 430, 570 485 C530 545, 460 575, 390 580 C320 575, 250 545, 210 485 Z" stroke="currentColor" stroke-width="2"/></svg>`,
-  oclusao: `<svg class="vf-guide-svg" viewBox="0 0 780 980" fill="none" aria-hidden="true"><path d="M200 428 C290 348, 490 348, 580 428 M200 552 C290 632, 490 632, 580 552" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"/><line x1="210" y1="490" x2="570" y2="490" stroke="currentColor" stroke-width="2"/></svg>`,
+  frente: `<svg class="vf-guide-svg" viewBox="0 0 780 980" fill="none" aria-hidden="true"><ellipse cx="390" cy="500" rx="215" ry="325" stroke="currentColor" stroke-width="2.4"/><line x1="390" y1="175" x2="390" y2="825" stroke="currentColor" stroke-width="1.4" stroke-dasharray="5 6" opacity=".5"/><line x1="230" y1="400" x2="550" y2="400" stroke="currentColor" stroke-width="1.5" stroke-dasharray="5 6" opacity=".55"/><circle cx="390" cy="400" r="4.2" fill="currentColor" opacity=".85"/><path d="M318 628 C358 608, 422 608, 462 628 C422 648, 358 648, 318 628 Z" stroke="currentColor" stroke-width="2.2"/><path d="M292 768 Q390 808 488 768" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>`,
+  sorriso: `<svg class="vf-guide-svg" viewBox="0 0 780 980" fill="none" aria-hidden="true"><path d="M155 395 C230 325, 310 300, 390 308 C470 300, 550 325, 625 395" stroke="currentColor" stroke-width="3.24" stroke-linecap="round"/><path d="M160 615 C245 710, 325 745, 390 748 C455 745, 535 710, 620 615" stroke="currentColor" stroke-width="3.24" stroke-linecap="round"/><path d="M155 395 C138 455, 138 545, 160 615" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/><path d="M625 395 C642 455, 642 545, 620 615" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/><line x1="390" y1="290" x2="390" y2="770" stroke="currentColor" stroke-width="1.89" stroke-dasharray="5 6" opacity=".55"/><line x1="200" y1="510" x2="580" y2="510" stroke="currentColor" stroke-width="1.89" opacity=".4"/></svg>`,
+  oclusao: `<svg class="vf-guide-svg" viewBox="0 0 780 980" fill="none" aria-hidden="true"><path d="M200 400 C290 340, 490 340, 580 400" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/><path d="M200 580 C290 640, 490 640, 580 580" stroke="currentColor" stroke-width="2.7" stroke-linecap="round"/><line x1="200" y1="490" x2="580" y2="490" stroke="currentColor" stroke-width="2.2"/><line x1="390" y1="320" x2="390" y2="660" stroke="currentColor" stroke-width="1.4" stroke-dasharray="5 6" opacity=".5"/></svg>`,
 };
 
 export function createGuideOverlay(): {
@@ -54,9 +43,9 @@ export function createGuideOverlay(): {
 
   const bindAsset = (pose: Pose) => {
     const request = ++token;
-    const kids = isKidsTheme();
-    frame.dataset.skin = kids ? "kids" : "adultos";
-    const urls = guideAssetCandidates(pose, kids);
+    const skin = paintedSkin();
+    frame.dataset.skin = skin;
+    const urls = guideAssetCandidates(pose, skin);
     let i = 0;
     asset.classList.add("hidden");
     fallback.classList.remove("hidden");
