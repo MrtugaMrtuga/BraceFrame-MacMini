@@ -1,0 +1,22 @@
+/* BraceFrame V2 — Skin B · Adultos */
+:root,
+.skin-adultos {
+  --page: #f5f5f7;
+  --card: #ffffff;
+  --ink: #0a0a0a;
+  --mute: #6e6e73;
+  --line: #d2d2d7;
+  --accent: #ff5a4a; /* sparingly: active tab, progress, frames */
+  --soft: #efeff4;
+  --radius-card: 12px;
+  --radius-pill: 8px;
+  --radius-cta: 10px;
+  --cta-height: 50px;
+  --font: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Text', sans-serif;
+  --title-weight: 700;
+  --title-size: 24px;
+  --title-tracking: -0.02em;
+  --cta-bg: #0a0a0a;
+  --cta-fg: #ffffff;
+  --cta-shadow: none;
+}

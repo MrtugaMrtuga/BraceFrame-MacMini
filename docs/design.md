@@ -2,8 +2,12 @@
 
 Os ecrãs, marcas de água e cartão QR foram definidos pelos boards de produto. A app segue-os à letra.
 
+## LOOK V2
+
+Peles Kids e Adultos: [`LOOK-v2.md`](LOOK-v2.md). Fatia A: [`fatia-a.md`](fatia-a.md).
+
 ## Ecrãs (`board-screens`)
-Cinco tabs mobile-first, look Marahas / teen, PT-PT.
+Cinco tabs mobile-first, look Marahas, PT-PT. Conselhos é rota a partir do Início — não é 6ª tab.
 
 1. **Início** — título BraceFrame, tagline, chip «Semana N», «X dias com aparelho», próxima consulta, CTA «Tirar fotos de hoje», «Últimas», barra «N de 14 semanas · continua assim».
 2. **Captura** — pills 1 · Frente / 2 · Sorriso / 3 · Oclusão, viewfinder, «Alinha o sorriso · N de 3».

@@ -1,6 +1,7 @@
 import { el } from "../lib/dom";
 import { todayISO } from "../lib/dates";
-import { addAppointment, patchProfile } from "../db/store";
+import { addAppointment, patchProfile, type ThemeId } from "../db/store";
+import { applyTheme } from "../theme";
 
 export function renderOnboarding(root: HTMLElement, onDone: () => void): void {
   const mark = el("div", { class: "mark" });
@@ -17,6 +18,18 @@ export function renderOnboarding(root: HTMLElement, onDone: () => void): void {
     "aria-label": "Próxima consulta",
   });
 
+  let theme: ThemeId = "adults";
+  const kids = el("button", { class: "seg-btn", type: "button" }, "Kids");
+  const adults = el("button", { class: "seg-btn on", type: "button" }, "Adultos");
+  const setTheme = (nextTheme: ThemeId) => {
+    theme = nextTheme;
+    kids.classList.toggle("on", nextTheme === "kids");
+    adults.classList.toggle("on", nextTheme === "adults");
+    applyTheme(nextTheme);
+  };
+  kids.addEventListener("click", () => setTheme("kids"));
+  adults.addEventListener("click", () => setTheme("adults"));
+
   const start = el("button", { class: "cta", type: "button" }, "Começar o diário");
   start.addEventListener("click", async () => {
     const placementDate = place.value || todayISO();
@@ -25,7 +38,11 @@ export function renderOnboarding(root: HTMLElement, onDone: () => void): void {
       nextAppointmentDate: next.value || undefined,
       treatmentWeeks: 14,
       onboarded: true,
+      theme,
+      hygieneFio: true,
+      hygieneElasticos: false,
     });
+    applyTheme(theme);
     if (next.value) {
       await addAppointment({ title: "Consulta", date: next.value, period: "manha" });
     }
@@ -46,6 +63,8 @@ export function renderOnboarding(root: HTMLElement, onDone: () => void): void {
       ),
       el("div", { class: "field" }, el("label", {}, "Dia da colocação"), place),
       el("div", { class: "field" }, el("label", {}, "Próxima consulta (se já tiveres)"), next),
+      el("div", { class: "field" }, el("label", {}, "Ecrã"), el("div", { class: "seg" }, kids, adults)),
+      el("p", { class: "hint" }, "Kids ou Adultos — duas peles. Mudas depois em Definições."),
       start,
     ),
   );

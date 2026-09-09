@@ -84,6 +84,13 @@ export function periodLabel(period: "manha" | "tarde"): string {
   return period === "manha" ? "manhã" : "tarde";
 }
 
+export function formatDateRange(fromISO?: string, toISO?: string): string {
+  if (!fromISO && !toISO) return "";
+  if (!fromISO) return formatDayMonth(toISO!);
+  if (!toISO || fromISO === toISO) return formatDayMonth(fromISO);
+  return `${formatDayMonth(fromISO)} — ${formatDayMonth(toISO)}`;
+}
+
 export function monthRangeLabel(fromISO?: string, toISO?: string): string {
   if (!fromISO || !toISO) return "—";
   const a = formatMonthShort(fromISO);

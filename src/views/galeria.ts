@@ -1,18 +1,50 @@
 import { el } from "../lib/dom";
 import { monthRangeLabel, todayISO } from "../lib/dates";
-import { listPhotos, type Photo } from "../db/store";
+import { listPhotos, loadProfile, type Photo } from "../db/store";
+import { enabledHygieneItems, hygieneStreak } from "../db/hygiene";
+import { icon } from "../lib/icons";
+import { isKidsTheme } from "../theme";
 
 function urlOf(photo?: Photo): string {
   return photo ? URL.createObjectURL(photo.blob) : "";
 }
 
 export async function renderGaleria(root: HTMLElement): Promise<void> {
+  const profile = loadProfile();
+  const kids = isKidsTheme(profile?.theme);
   const photos = await listPhotos();
   const dates = [...new Set(photos.map((p) => p.date))].sort();
   const first = dates[0];
   const last = dates.at(-1);
   let afterDate = last ?? todayISO();
   let split = 50;
+  const streak = hygieneStreak(enabledHygieneItems(profile));
+
+  const badge = kids
+    ? streakChip(streak)
+    : el("span", { class: "chip range-chip" }, monthRangeLabel(first, last));
+
+  if (photos.length === 0) {
+    const empty = el("div", { class: "empty-stage" });
+    if (kids) {
+      empty.append(
+        el("div", { class: "empty-dots" }, el("span"), el("span"), el("span")),
+        el("h2", {}, "Ainda sem fotos"),
+        el("p", {}, "Já tiraste a de hoje? Continua o streak."),
+      );
+    } else {
+      empty.append(el("h2", {}, "Sem fotos ainda."), el("p", {}, "Quando tirares, aparecem aqui."));
+    }
+    root.replaceChildren(
+      el(
+        "section",
+        { class: "screen" },
+        el("div", { class: "top-row" }, el("h1", { class: "title" }, "Galeria"), badge),
+        empty,
+      ),
+    );
+    return;
+  }
 
   const before = photos.filter((p) => p.pose === "frente").at(-1) ?? photos.at(-1);
   const afterPhoto = (): Photo | undefined => {
@@ -62,18 +94,14 @@ export async function renderGaleria(root: HTMLElement): Promise<void> {
   });
 
   const row = el("div", { class: "date-row" });
-  if (dates.length === 0) {
-    row.append(el("span", { class: "date-pill active" }, "ainda sem fotos"));
-  } else {
-    for (const d of dates) {
-      const b = el("button", { class: `date-pill${d === afterDate ? " active" : ""}`, type: "button" }, d.slice(5));
-      b.addEventListener("click", () => {
-        afterDate = d;
-        for (const n of row.children) n.classList.toggle("active", n === b);
-        applyLayers();
-      });
-      row.append(b);
-    }
+  for (const d of dates) {
+    const b = el("button", { class: `date-pill${d === afterDate ? " active" : ""}`, type: "button" }, d.slice(5));
+    b.addEventListener("click", () => {
+      afterDate = d;
+      for (const n of row.children) n.classList.toggle("active", n === b);
+      applyLayers();
+    });
+    row.append(b);
   }
 
   applyLayers();
@@ -82,14 +110,15 @@ export async function renderGaleria(root: HTMLElement): Promise<void> {
     el(
       "section",
       { class: "screen" },
-      el(
-        "div",
-        { class: "top-row" },
-        el("h1", { class: "title" }, "Galeria"),
-        el("span", { class: "chip range-chip" }, monthRangeLabel(first, last)),
-      ),
+      el("div", { class: "top-row" }, el("h1", { class: "title" }, "Galeria"), badge),
       row,
       stage,
     ),
   );
+}
+
+function streakChip(streak: number): HTMLElement {
+  const chip = el("span", { class: "chip streak" });
+  chip.innerHTML = `${icon("star")} ${streak} ${streak === 1 ? "dia" : "dias"}`;
+  return chip;
 }

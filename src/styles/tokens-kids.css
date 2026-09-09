@@ -1,0 +1,23 @@
+/* BraceFrame V2 — Skin A · Kids */
+:root,
+.skin-kids {
+  --page: #fff8f6;
+  --card: #ffffff;
+  --ink: #1a1210;
+  --mute: #9a8b86;
+  --line: #f0e4e0;
+  --accent: #ff5a4a;
+  --soft: #ffe8e4;
+  --streak: #ffb020; /* Kids only */
+  --radius-card: 24px;
+  --radius-pill: 999px;
+  --radius-cta: 18px;
+  --cta-height: 56px;
+  --font: -apple-system, BlinkMacSystemFont, 'Inter', 'SF Pro Text', sans-serif;
+  --title-weight: 800;
+  --title-size: 30px;
+  --title-tracking: -0.03em;
+  --cta-bg: var(--accent);
+  --cta-fg: #ffffff;
+  --cta-shadow: 0 8px 24px rgba(255, 90, 74, 0.28);
+}

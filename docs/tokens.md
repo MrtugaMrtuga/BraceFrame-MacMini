@@ -1,36 +1,51 @@
 # BraceFrame · tokens e marca
 
-Paleta única. Não inventar cores.
+LOOK V2 bloqueado: duas peles. Ver [`LOOK-v2.md`](LOOK-v2.md).
+
+Coral único partilhado: `#ff5a4a`.
+
+## Skin A · Kids (`skin-kids`)
 
 | Token | Hex | Uso |
 | --- | --- | --- |
-| Page | `#fafafa` | Fundo da app |
-| Card | `#ffffff` | Cartões, tab bar |
-| Ink | `#111111` | Texto principal |
-| Mute | `#8e8e93` | Secundário, tabs inactivas |
-| Line | `#e5e5ea` | Separadores |
-| Accent | `#ff5a4a` | Único coral — CTAs, activo, frames |
-| Soft wash | `#fff1ef` | Chips, estado vazio |
-| Placeholder | `#ececee` | Fotos em falta + moldura coral |
+| Page | `#fff8f6` | Fundo |
+| Soft | `#ffe8e4` | Wash, nudge |
+| Ink | `#1a1210` | Texto |
+| Mute | `#9a8b86` | Secundário |
+| Line | `#f0e4e0` | Separadores |
+| Accent | `#ff5a4a` | CTA, activo |
+| Streak | `#ffb020` | Badge de streak (só Kids) |
 
-## Raios
-- Cartões: `20px`
-- Pills / chips: `999px`
-- CTA: `14px`, altura ~`54px`, coral + texto branco
+Raios: cartão `24px`, CTA `18px`. CTA coral com sombra.
+
+## Skin B · Adultos (`skin-adultos`)
+
+| Token | Hex | Uso |
+| --- | --- | --- |
+| Page | `#f5f5f7` | Fundo |
+| Soft | `#efeff4` | Chips calmos |
+| Ink | `#0a0a0a` | Texto + CTA |
+| Mute | `#6e6e73` | Secundário |
+| Line | `#d2d2d7` | Separadores |
+| Accent | `#ff5a4a` | Tab activa, progresso, frames — com parcimónia |
+
+Raios: cartão `12px`, CTA `10px`. Sem streak, sem ouro.
 
 ## Ícone (bloqueado)
-O mark é o viewfinder + sorriso em coral sobre `#fafafa`.
+
+O mark é o viewfinder + sorriso em coral.
 
 - Fonte de verdade: `public/icons/icon.svg`
 - PNG 1024: `docs/icon-1024.png` e `public/icons/icon-1024.png`
 - Não gerar um ícone alternativo. Tamanhos PWA saem de `npm run icons`.
 
 ## Copy (PT-PT)
+
 Tom de amigo. Nunca «paciente».
 
 - Tagline: «o teu sorriso em curso»
 - CTA: «Tirar fotos de hoje»
-- Captura: «Alinha o sorriso»
+- Captura: «Alinha o sorriso» · Frente · Sorriso · Oclusão
 - Galeria: «Antes / Agora»
 - Reveal: «Partilhar no Reels»
 - Tabs: Início · Captura · Galeria · Consultas · Reveal

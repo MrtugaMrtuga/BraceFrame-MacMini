@@ -2,18 +2,17 @@ import { el } from "../lib/dom";
 import { daysBetween, weekNumber } from "../lib/dates";
 import { listPhotos, loadProfile, type Photo } from "../db/store";
 import { exportReveal, shareReveal } from "../reveal/exporter";
+import { pickTimelineFrames } from "../reveal/frames";
 import { openProStub } from "../purchase/stub";
 import { icon } from "../lib/icons";
 
 export async function renderReveal(root: HTMLElement): Promise<void> {
   const profile = loadProfile();
   const photos = await listPhotos();
-  const week = profile ? weekNumber(daysBetween(profile.placementDate)) : 1;
-  const before = photos.filter((p) => p.pose === "frente").at(-1) ?? photos.at(-1);
-  const after =
-    photos.find((p) => p.id !== before?.id) ??
-    photos.find((p) => p.pose === "frente") ??
-    photos[0];
+  const days = profile ? daysBetween(profile.placementDate) : 0;
+  const week = profile ? weekNumber(days) : 1;
+  const frames = pickTimelineFrames(photos);
+  const after = frames.at(-1) ?? photos[0];
 
   const stage = el("div", { class: "reveal-stage frame-marks" });
   if (after) {
@@ -25,13 +24,10 @@ export async function renderReveal(root: HTMLElement): Promise<void> {
   play.innerHTML = icon("play");
   const pro = el("button", { class: "chip ink", type: "button" }, "PRO");
   pro.addEventListener("click", openProStub);
+  const countLabel =
+    frames.length > 1 ? `${frames.length} momentos · time-lapse` : `Reveal · Semana ${week}`;
   stage.append(
-    el(
-      "div",
-      { class: "reveal-top" },
-      el("span", {}, `Reveal · Semana ${week}`),
-      pro,
-    ),
+    el("div", { class: "reveal-top" }, el("span", {}, countLabel), pro),
     play,
   );
 
@@ -46,13 +42,21 @@ export async function renderReveal(root: HTMLElement): Promise<void> {
       openProStub();
       return;
     }
-    if (!before || !after) {
+    if (!frames.length) {
       status.textContent = "Precisas de pelo menos uma foto para o reveal.";
       return;
     }
-    status.textContent = "A montar o 9:16…";
+    status.textContent =
+      frames.length > 2 ? "A montar o time-lapse 9:16…" : "A montar o 9:16…";
     try {
-      const out = await exportReveal({ before, after, week, kind });
+      const out = await exportReveal({
+        frames,
+        week,
+        days,
+        dateFrom: frames[0]?.date ?? profile?.placementDate,
+        dateTo: frames.at(-1)?.date,
+        kind,
+      });
       last = { blob: out.blob, mime: out.mime };
       const url = URL.createObjectURL(out.blob);
       stage.querySelector("video")?.remove();
@@ -70,7 +74,7 @@ export async function renderReveal(root: HTMLElement): Promise<void> {
       }
       play.classList.add("hidden");
       status.textContent = out.mime.startsWith("video/")
-        ? "Pronto · com marca de água BraceFrame."
+        ? "Pronto · time-lapse com apresentação do caso e marca de água BraceFrame."
         : "Vídeo não disponível neste browser · partilha o cartaz 9:16.";
     } catch {
       status.textContent = "Não deu para gerar. Tenta outra vez.";
@@ -100,6 +104,13 @@ export async function renderReveal(root: HTMLElement): Promise<void> {
       "section",
       { class: "screen" },
       el("h1", { class: "title" }, "Reveal"),
+      el(
+        "p",
+        { class: "hint" },
+        frames.length > 1
+          ? "Antes → agora, quadro a quadro, e no fim a apresentação do caso."
+          : "Tira mais fotos em dias diferentes para o time-lapse ganhar ritmo.",
+      ),
       pickRow,
       stage,
       share,

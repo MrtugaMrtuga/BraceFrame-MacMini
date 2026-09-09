@@ -1,5 +1,6 @@
 export type Pose = "frente" | "sorriso" | "oclusao";
 export type Period = "manha" | "tarde";
+export type ThemeId = "kids" | "adults";
 
 export interface Photo {
   id: string;
@@ -25,6 +26,11 @@ export interface Profile {
   a2hsDismissed?: boolean;
   lastCaptureDate?: string;
   weeklyBannerDismissedOn?: string;
+  theme?: ThemeId;
+  hygieneFio?: boolean;
+  hygieneElasticos?: boolean;
+  hygieneBannerDismissedOn?: string;
+  hygieneNotifiedOn?: string;
 }
 
 const DB_NAME = "braceframe";
