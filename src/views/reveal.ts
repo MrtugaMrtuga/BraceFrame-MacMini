@@ -10,7 +10,10 @@ export async function renderReveal(root: HTMLElement): Promise<void> {
   const photos = await listPhotos();
   const week = profile ? weekNumber(daysBetween(profile.placementDate)) : 1;
   const before = photos.filter((p) => p.pose === "frente").at(-1) ?? photos.at(-1);
-  const after = photos.find((p) => p.pose === "frente") ?? photos[0];
+  const after =
+    photos.find((p) => p.id !== before?.id) ??
+    photos.find((p) => p.pose === "frente") ??
+    photos[0];
 
   const stage = el("div", { class: "reveal-stage frame-marks" });
   if (after) {

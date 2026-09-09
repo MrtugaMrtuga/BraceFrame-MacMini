@@ -14,17 +14,16 @@ export async function renderGaleria(root: HTMLElement): Promise<void> {
   let afterDate = last ?? todayISO();
   let split = 50;
 
-  const pick = (date: string, prefer: Photo["pose"][]): Photo | undefined => {
-    const day = photos.filter((p) => p.date === date);
-    for (const pose of prefer) {
-      const hit = day.find((p) => p.pose === pose);
+  const before = photos.filter((p) => p.pose === "frente").at(-1) ?? photos.at(-1);
+  const afterPhoto = (): Photo | undefined => {
+    const day = photos.filter((p) => p.date === afterDate);
+    const newer = day.filter((p) => p.id !== before?.id);
+    for (const pose of ["sorriso", "oclusao", "frente"] as const) {
+      const hit = newer.find((p) => p.pose === pose);
       if (hit) return hit;
     }
-    return day[0];
+    return newer[0] ?? day[0];
   };
-
-  const before = photos.filter((p) => p.pose === "frente").at(-1) ?? photos.at(-1);
-  const afterPhoto = () => pick(afterDate, ["frente", "sorriso", "oclusao"]);
 
   const beforeLayer = el("div", { class: "gallery-layer frame-marks" });
   const afterLayer = el("div", { class: "gallery-layer after frame-marks" });
