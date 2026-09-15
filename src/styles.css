@@ -1298,6 +1298,7 @@ html.skin-adultos .progress-bar {
   letter-spacing: -0.03em;
 }
 
+.adesao-panel p.adesao-hero-stat,
 .adesao-hero-stat {
   margin: 6px 0 18px;
   font-size: 56px;
@@ -1305,6 +1306,7 @@ html.skin-adultos .progress-bar {
   font-weight: 800;
   letter-spacing: -0.04em;
   text-align: center;
+  color: var(--ink);
 }
 
 .adesao-ring {
