@@ -1,3 +1,5 @@
+import { openDb, reqTo, txDone } from "./idb";
+
 export type Pose = "frente" | "sorriso" | "oclusao";
 export type Period = "manha" | "tarde";
 export type ThemeId = "kids" | "adults";
@@ -31,46 +33,13 @@ export interface Profile {
   hygieneElasticos?: boolean;
   hygieneBannerDismissedOn?: string;
   hygieneNotifiedOn?: string;
+  patientId?: string;
+  adesaoElasticos?: boolean;
+  adesaoAlinhadores?: boolean;
+  adesaoOfm?: boolean;
 }
 
-const DB_NAME = "braceframe";
-const DB_VERSION = 1;
 const PROFILE_KEY = "braceframe-profile";
-
-function openDb(): Promise<IDBDatabase> {
-  return new Promise((resolve, reject) => {
-    const req = indexedDB.open(DB_NAME, DB_VERSION);
-    req.onupgradeneeded = () => {
-      const db = req.result;
-      if (!db.objectStoreNames.contains("photos")) {
-        const photos = db.createObjectStore("photos", { keyPath: "id" });
-        photos.createIndex("byDate", "date");
-        photos.createIndex("byPoseDate", ["pose", "date"], { unique: false });
-      }
-      if (!db.objectStoreNames.contains("appointments")) {
-        const appts = db.createObjectStore("appointments", { keyPath: "id" });
-        appts.createIndex("byDate", "date");
-      }
-    };
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
-  });
-}
-
-function txDone(tx: IDBTransaction): Promise<void> {
-  return new Promise((resolve, reject) => {
-    tx.oncomplete = () => resolve();
-    tx.onerror = () => reject(tx.error);
-    tx.onabort = () => reject(tx.error);
-  });
-}
-
-function reqTo<T>(req: IDBRequest<T>): Promise<T> {
-  return new Promise((resolve, reject) => {
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
-  });
-}
 
 export function loadProfile(): Profile | null {
   try {
@@ -94,6 +63,14 @@ export function patchProfile(partial: Partial<Profile>): Profile {
   const next = { ...current, ...partial };
   saveProfile(next);
   return next;
+}
+
+export function ensurePatientId(): string {
+  const profile = loadProfile();
+  if (profile?.patientId) return profile.patientId;
+  const patientId = crypto.randomUUID();
+  patchProfile({ patientId });
+  return patientId;
 }
 
 /** One slot per pose per day — Frente / Sorriso / Oclusão never share a key. */

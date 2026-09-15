@@ -105,3 +105,19 @@ export function addDaysISO(iso: string, days: number): string {
   d.setDate(d.getDate() + days);
   return todayISO(d);
 }
+
+export function startOfDayMs(iso: string): number {
+  const d = parseISO(iso);
+  d.setHours(0, 0, 0, 0);
+  return d.getTime();
+}
+
+export function endOfDayMs(iso: string): number {
+  const d = parseISO(iso);
+  d.setHours(23, 59, 59, 999);
+  return d.getTime();
+}
+
+export function isPastDay(iso: string, now = new Date()): boolean {
+  return iso < todayISO(now);
+}
