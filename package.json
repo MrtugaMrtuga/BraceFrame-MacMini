@@ -8,8 +8,9 @@
     "guides": "node scripts/export-guides.mjs",
     "check:captura": "node scripts/check-captura.mjs",
     "check:header": "node scripts/check-header.mjs",
+    "check:adesao": "node scripts/check-adesao.mjs",
     "dev": "vite",
-    "build": "npm run icons && npm run guides && npm run check:captura && npm run check:header && tsc --noEmit && vite build",
+    "build": "npm run icons && npm run guides && npm run check:captura && npm run check:header && npm run check:adesao && tsc --noEmit && vite build",
     "preview": "vite preview --host"
   },
   "devDependencies": {

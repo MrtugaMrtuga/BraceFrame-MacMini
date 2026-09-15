@@ -1252,3 +1252,325 @@ html.skin-adultos .banner {
 html.skin-adultos .progress-bar {
   border-radius: var(--radius-pill);
 }
+
+/* Fatia 1 · Adesão — hooks for later Marahas skinning */
+.screen-adesao .adesao-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.adesao-heading {
+  min-width: 0;
+}
+
+.adesao-header-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 auto;
+}
+
+.adesao-hero {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 18px;
+  padding: 18px 16px;
+}
+
+.adesao-hero-copy {
+  min-width: 0;
+}
+
+.adesao-kicker {
+  margin: 0;
+  color: var(--mute);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.adesao-hero-title {
+  margin: 4px 0 0;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.adesao-panel p.adesao-hero-stat,
+.adesao-hero-stat {
+  margin: 6px 0 18px;
+  font-size: 56px;
+  line-height: 0.95;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  text-align: center;
+  color: var(--ink);
+}
+
+.adesao-ring {
+  position: relative;
+  width: var(--ring, 88px);
+  height: var(--ring, 88px);
+  flex: 0 0 var(--ring, 88px);
+}
+
+.adesao-ring svg {
+  width: 100%;
+  height: 100%;
+  transform: rotate(-90deg);
+}
+
+.adesao-ring-track,
+.adesao-ring-fill {
+  fill: none;
+  stroke-width: 8;
+}
+
+.adesao-ring-track {
+  stroke: var(--line);
+}
+
+.adesao-ring-fill {
+  stroke: var(--accent);
+  stroke-linecap: round;
+}
+
+.adesao-ring-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.adesao-ring-center strong {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.adesao-ring-hours strong {
+  font-size: 28px;
+}
+
+.adesao-ring-hours span {
+  color: var(--mute);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.adesao-tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.adesao-task {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px;
+  background: var(--card);
+  border-radius: var(--radius-card);
+  text-decoration: none;
+  color: inherit;
+  box-shadow: 0 1px 0 var(--line);
+}
+
+.adesao-task-copy {
+  flex: 1;
+  min-width: 0;
+}
+
+.adesao-task h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 750;
+}
+
+.adesao-task p {
+  margin: 4px 0 0;
+  color: var(--mute);
+  font-size: 14px;
+}
+
+.adesao-check {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 2px solid var(--line);
+  display: grid;
+  place-items: center;
+  flex: 0 0 28px;
+  color: #fff;
+}
+
+.adesao-check.on {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.adesao-check svg {
+  width: 16px;
+  height: 16px;
+}
+
+.adesao-mini {
+  width: 44px;
+  height: 6px;
+  border-radius: 99px;
+  background: var(--line);
+  overflow: hidden;
+  flex: 0 0 44px;
+}
+
+.adesao-mini > span {
+  display: block;
+  height: 100%;
+  background: var(--accent);
+  border-radius: inherit;
+}
+
+.adesao-rail {
+  width: 4px;
+  align-self: stretch;
+  border-radius: 99px;
+  background: var(--line);
+  flex: 0 0 4px;
+}
+
+.adesao-rail.on {
+  background: var(--accent);
+}
+
+.adesao-task-action {
+  color: var(--mute);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.adesao-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 18px;
+  padding: 22px 18px 20px;
+  text-align: center;
+}
+
+.adesao-clock {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+.adesao-dots {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  width: 100%;
+}
+
+.adesao-dot-wrap {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--mute);
+  font-size: 12px;
+  font-weight: 650;
+}
+
+.adesao-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--line);
+}
+
+.adesao-dot.on {
+  background: var(--accent);
+}
+
+.adesao-chips {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+.adesao-chip {
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background: var(--soft);
+  color: var(--mute);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.adesao-chip.on {
+  background: var(--accent);
+  color: #fff;
+}
+
+.adesao-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.adesao-pair .cta {
+  margin-top: 0;
+}
+
+.adesao-lock-hint {
+  margin-top: 16px;
+  text-align: center;
+}
+
+.screen-adesao .soft-box {
+  margin-top: 16px;
+}
+
+.screen-adesao .soft-box h3 {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 750;
+}
+
+.screen-adesao .soft-box p {
+  margin: 6px 0 0;
+}
+
+html.skin-kids .cta.ghost {
+  border-color: var(--accent);
+}
+
+html.skin-kids .adesao-task,
+html.skin-kids .adesao-panel,
+html.skin-kids .adesao-hero {
+  background: var(--card);
+  box-shadow: none;
+}
+
+html.skin-adultos .adesao-task,
+html.skin-adultos .adesao-panel,
+html.skin-adultos .adesao-hero {
+  border: 1px solid var(--line);
+  box-shadow: none;
+}
+
+html.skin-adultos .adesao-hero-title {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+html.skin-adultos .chip.streak {
+  display: none;
+}

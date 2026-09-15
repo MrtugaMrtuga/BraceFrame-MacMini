@@ -16,4 +16,4 @@ Produto local-first. Sem contas, backend, Stripe ou APIs pagas.
 | --- | --- |
 | Início → Conselhos / Urgência / Comida | `#/conselhos` `#/urgencia` `#/comida` |
 | Início → engrenagem | `#/definicoes` |
-| Tabs | `#/` `#/captura` `#/galeria` `#/consultas` `#/reveal` |
+| Tabs | `#/` (`Hoje`) `#/captura` `#/galeria` `#/consultas` `#/reveal` |
