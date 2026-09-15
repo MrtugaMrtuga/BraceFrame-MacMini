@@ -12,7 +12,7 @@ import {
 } from "../db/hygiene";
 import { icon } from "../lib/icons";
 import { homeMarkSize, homeMarkSrc } from "../lib/marks";
-import { linkCard } from "../lib/nav";
+import { backLink, linkCard } from "../lib/nav";
 import { isKidsTheme } from "../theme";
 
 function thumb(photo?: Photo): HTMLElement {
@@ -68,6 +68,7 @@ export async function renderInicio(root: HTMLElement): Promise<void> {
     : `${week} de ${total} semanas`;
 
   const children: Array<Node | string> = [
+    backLink("#/", "Hoje"),
     homeHeader(kids, settings),
   ];
 

@@ -31,7 +31,7 @@ HTTPS (ou localhost) é obrigatório para câmara, PWA e notificações.
 
 | Sítio | Função |
 | --- | --- |
-| Início | Dias com aparelho, higiene, Conselhos, CTA «Tirar fotos de hoje» |
+| Hoje | Hub de adesão — elásticos, horas de alinhador, OFM, % uso |
 | Captura | Frente · Sorriso · Oclusão |
 | Galeria | Slider «Antes / Agora» (vazia: copy por pele) |
 | Consultas | CRUD local, lembrete, `.ics` |
@@ -39,9 +39,12 @@ HTTPS (ou localhost) é obrigatório para câmara, PWA e notificações.
 | Conselhos | `#/conselhos` — vídeos locais + atalhos |
 | Urgência | `#/urgencia` — fio preso / afta / bracket solto |
 | Comida | `#/comida` — semáforo verde / amarelo / vermelho |
-| Definições | `#/definicoes` — pele Kids / Adultos |
+| Definições | `#/definicoes` — pele Kids / Adultos + plano de hoje |
+| Diário | `#/diario` — fotos, higiene, Conselhos (o antigo Início) |
 
 **Pro** é só um stub «Pro em breve». Sem StoreKit / Stripe.
+
+Fatia 1 (adesão local): [`docs/fatia-1.md`](docs/fatia-1.md). LOOK: [`docs/adesao/LOOK.md`](docs/adesao/LOOK.md).
 
 ## Fatia A
 

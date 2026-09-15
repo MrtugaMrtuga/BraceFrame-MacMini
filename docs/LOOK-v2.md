@@ -21,7 +21,9 @@ Coral partilhado: `#ff5a4a`. Sem chrome GoSmile. Sem mascotes.
 - **Kids:** «Continua o streak» · «Streak · N dias» · galeria vazia «Ainda sem fotos»
 - **Adultos:** sem UI de streak nem ouro · «42 dias com aparelho» · galeria vazia «Sem fotos ainda.»
 
-Header Início (mark + BraceFrame + tagline): [`HEADER.md`](HEADER.md).
+Header do diário (`#/diario`, mark + BraceFrame + tagline): [`HEADER.md`](HEADER.md).
+
+Fatia 1 Adesão (hub **Hoje**, locked 15 set 2026): [`adesao/LOOK.md`](adesao/LOOK.md).
 
 ## Boards
 

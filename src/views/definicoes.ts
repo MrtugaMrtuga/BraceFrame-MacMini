@@ -1,5 +1,5 @@
 import { el } from "../lib/dom";
-import { backLink } from "../lib/nav";
+import { backLink, linkCard } from "../lib/nav";
 import { loadProfile, patchProfile, type ThemeId } from "../db/store";
 import { applyTheme } from "../theme";
 
@@ -30,6 +30,21 @@ export function renderDefinicoes(root: HTMLElement): void {
       "Elásticos no checklist",
       Boolean(profile.hygieneElasticos),
       (on) => patchProfile({ hygieneElasticos: on }),
+    );
+    const planElasticos = toggleRow(
+      "Elásticos no plano",
+      profile.adesaoElasticos !== false,
+      (on) => patchProfile({ adesaoElasticos: on }),
+    );
+    const planAlinhadores = toggleRow(
+      "Alinhadores no plano",
+      profile.adesaoAlinhadores !== false,
+      (on) => patchProfile({ adesaoAlinhadores: on }),
+    );
+    const planOfm = toggleRow(
+      "OFM / removível no plano",
+      profile.adesaoOfm !== false,
+      (on) => patchProfile({ adesaoOfm: on }),
     );
 
     const notify = el("button", { class: "cta ghost", type: "button" }, "Pedir lembrete no telemóvel");
@@ -63,9 +78,21 @@ export function renderDefinicoes(root: HTMLElement): void {
           { class: "hint" },
           "Duas peles. Kids tem streak dourado; Adultos é calmo, com CTA preto.",
         ),
+        el("h2", { class: "section-label" }, "Plano de hoje"),
+        el("div", { class: "check-list" }, planElasticos, planAlinhadores, planOfm),
+        el(
+          "p",
+          { class: "hint" },
+          "Tarefas desligadas não aparecem em Hoje. Fica só neste telemóvel.",
+        ),
         el("h2", { class: "section-label" }, "Higiene"),
-        fio,
-        elasticos,
+        el("div", { class: "check-list" }, fio, elasticos),
+        el("h2", { class: "section-label" }, "Diário"),
+        el(
+          "div",
+          { class: "cards" },
+          linkCard("#/diario", "Fotos e higiene", "O diário de sorriso, conselhos e o streak de escovar."),
+        ),
         el("h2", { class: "section-label" }, "Avisos"),
         notify,
         status,
