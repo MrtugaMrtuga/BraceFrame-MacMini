@@ -94,6 +94,7 @@ export function taskComplete(day: AdherenceDay, task: AdherenceTask, now = Date.
 }
 
 export function taskStarted(day: AdherenceDay, task: AdherenceTask, now = Date.now()): boolean {
+  if (task === "alinhadores") return displayHours(currentAlignerHours(day, now)) > 0;
   return taskProgress(day, task, now) > 0;
 }
 

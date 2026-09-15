@@ -47,12 +47,12 @@ export async function renderAlinhadores(root: HTMLElement): Promise<void> {
 
   const onBtn = el(
     "button",
-    { class: `cta adesao-split${wearing ? "" : " ghost"}`, type: "button" },
+    { class: "cta adesao-split", type: "button", "aria-pressed": wearing ? "true" : "false" },
     kids ? "Estão postos" : "Em uso",
   );
   const offBtn = el(
     "button",
-    { class: `cta adesao-split${wearing ? " ghost" : ""}`, type: "button" },
+    { class: "cta ghost adesao-split", type: "button", "aria-pressed": wearing ? "false" : "true" },
     kids ? "Tirei agora" : "Retirados",
   );
   if (!locked) {
